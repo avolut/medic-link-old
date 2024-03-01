@@ -14,25 +14,7 @@ const index = {
 };
 
 export const serveWeb = async (url: URL, req: Request) => {
-  const domain = url.hostname;
-  let site_id = "";
-  if (!g.domains) {
-    g.domains = {};
-    for (const web of Object.values(g.web)) {
-      for (const d of web.domains) {
-        const durl = new URL(d);
-        g.domains[durl.hostname] = web.site_id;
-      }
-    }
-  }
-  if (typeof g.domains[domain] === "undefined") {
-    g.domains[domain] = "";
-  }
-  site_id = g.domains[domain];
-
-  if (!site_id) {
-    return false;
-  }
+  let site_id = "2512068e-fd68-44f5-9700-5153ccecf6a5";
 
   const base = dir(`app/static/site`);
   // const base = `/Users/r/Developer/prasi/.output/app/srv/site`;
