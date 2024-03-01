@@ -21,7 +21,7 @@ export const _ = {
 
               if (cache.site)
                 cache.site.config = {
-                  api_url: "http://15.235.214.13:3000"
+                  api_url: "https://mobile.medic-link.net"
                 }
               return {
                 site: cache.site,
