@@ -2,7 +2,7 @@ export const _proxy = {
   name: "_proxy",
   url: "/_proxy/*",
   path: "app/srv/api/_proxy.ts",
-  args: ["arg"],
+  args: [],
   handler: import("../../pkgs/api/_proxy")
 }
 export const _notif = {

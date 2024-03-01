@@ -18,6 +18,11 @@ export const _ = {
           case "site": {
             res.setHeader("content-type", "application/json");
             if (req.query_parameters["prod"]) {
+
+              if (cache.site)
+                cache.site.config = {
+                  api_url: "http://15.235.214.13:3000"
+                }
               return {
                 site: cache.site,
                 pages: cache.pages.map((e) => {

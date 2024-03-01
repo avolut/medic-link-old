@@ -1,12 +1,8 @@
 declare module "pkgs/api/_proxy" {
     export const _: {
         url: string;
-        api(arg: {
-            url: string;
-            method: "POST" | "GET";
-            headers: any;
-            body: any;
-        }): Promise<Response>;
+        raw: boolean;
+        api(): Promise<Response>;
     };
 }
 declare module "pkgs/api/_notif" {
@@ -121,6 +117,7 @@ declare module "pkgs/utils/global" {
                     name: string;
                     favicon: string;
                     domain: string;
+                    config: any;
                     id_user: string;
                     created_at: Date | null;
                     id_org: string | null;
@@ -218,7 +215,7 @@ declare module "pkgs/api/_deploy" {
     export const downloadFile: (url: string, filePath: string, progress?: (rec: number, total: number) => void) => Promise<boolean>;
 }
 declare module "pkgs/server/serve-web" {
-    export const serveWeb: (url: URL, req: Request) => Promise<false | string[] | Response>;
+    export const serveWeb: (url: URL, req: Request) => Promise<string[] | Response>;
     export const generateIndexHtml: (base_url: string, site_id: string) => string;
 }
 declare module "pkgs/api/_file" {
@@ -232,7 +229,7 @@ declare module "app/srv/exports" {
         name: string;
         url: string;
         path: string;
-        args: string[];
+        args: any[];
         handler: Promise<typeof import("pkgs/api/_proxy")>;
     };
     export const _notif: {

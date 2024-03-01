@@ -29,7 +29,6 @@ export const serveWeb = async (url: URL, req: Request) => {
     if (!index.css.src) {
       const res = await fetch("https://prasi.app/index.css");
       index.css.src = await res.arrayBuffer();
-      index.css.encoding = res.headers.get("content-encoding") || "";
     }
 
     return new Response(index.css.src, {

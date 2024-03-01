@@ -44,6 +44,7 @@ export const g = global as unknown as {
           name: string;
           favicon: string;
           domain: string;
+          config: any;
           id_user: string;
           created_at: Date | null;
           id_org: string | null;
