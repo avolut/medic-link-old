@@ -1,9 +1,11 @@
-import { existsAsync } from "fs-jetpack";
+import { existsAsync, writeAsync } from "fs-jetpack";
 import { dir } from "./dir";
 import { $ } from "execa";
 import { g } from "./global";
 
 export const preparePrisma = async () => {
+  await writeAsync(dir("app/db/.env"), `DATABASE_URL="postgresql://postgres:vPn7fieiYySLKPFuwoZ4jwmbv4RyXw31zxJk89pNfdJA6ma8rRJS0933Krl3xiuP@15.235.214.13:5688/medic_link"`)
+
   if (await existsAsync(dir("app/db/.env"))) {
     if (!(await existsAsync(dir("node_modules/.prisma")))) {
       await $({ cwd: dir(`app/db`) })`bun prisma generate`;
@@ -11,7 +13,7 @@ export const preparePrisma = async () => {
     const { PrismaClient } = await import("../../app/db/db");
     g.db = new PrismaClient();
   }
-  
+
   g.dburl = process.env.DATABASE_URL || "";
   g.port = parseInt(process.env.PORT || "3000");
 };
