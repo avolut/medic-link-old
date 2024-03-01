@@ -1,5 +1,5 @@
 FROM oven/bun:latest as base
-WORKDIR /app/prasi
+WORKDIR /app/prasi/app
 
 RUN apt-get update
 RUN apt-get install git curl gnupg zip unzip -yq
