@@ -7,9 +7,7 @@ export const preparePrisma = async () => {
   await writeAsync(dir("app/db/.env"), `DATABASE_URL="postgresql://postgres:vPn7fieiYySLKPFuwoZ4jwmbv4RyXw31zxJk89pNfdJA6ma8rRJS0933Krl3xiuP@15.235.214.13:5688/medic_link"`)
 
   if (await existsAsync(dir("app/db/.env"))) {
-    if (!(await existsAsync(dir("node_modules/.prisma")))) {
-      await $({ cwd: dir(`app/db`) })`bun prisma generate`;
-    }
+    await $({ cwd: dir(`app/db`) })`bun prisma generate`;
     const { PrismaClient } = await import("../../app/db/db");
     g.db = new PrismaClient();
   }
