@@ -6,8 +6,9 @@ export const _ = {
   async api() {
     const { req } = apiContext(this);
 
+    const raw_url = req.params["_"] || req.params["_0"];
     try {
-      const url = new URL(decodeURIComponent(req.params["_"]));
+      const url = new URL(decodeURIComponent(raw_url));
       const body = await req.arrayBuffer();
       const headers = {} as Record<string, string>;
       req.headers.forEach((v, k) => {
