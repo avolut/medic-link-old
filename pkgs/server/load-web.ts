@@ -19,7 +19,7 @@ export const loadWeb = async () => {
 
   await dirAsync(dir(`app/static`));
   const siteZip = `${
-    g.mode === "dev" ? "http://localhost:4550" : "https://prasi.app"
+    g.mode === "dev" ? "http://localhost:4550" : "https://prasi.avolut.com"
   }/site-bundle`;
   const zipPath = dir(`app/static/site.zip`);
   const md5Path = dir(`app/static/md5`);

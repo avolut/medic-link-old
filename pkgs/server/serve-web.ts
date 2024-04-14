@@ -27,7 +27,7 @@ export const serveWeb = async (url: URL, req: Request) => {
 
   if (url.pathname.startsWith("/index.css")) {
     if (!index.css.src) {
-      const res = await fetch("https://prasi.app/index.css");
+      const res = await fetch("https://prasi.avolut.com/index.css");
       index.css.src = await res.arrayBuffer();
     }
 

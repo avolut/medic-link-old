@@ -1,57 +1,3 @@
-declare module "pkgs/api/_proxy" {
-    export const _: {
-        url: string;
-        raw: boolean;
-        api(): Promise<Response>;
-    };
-}
-declare module "pkgs/api/_notif" {
-    export const _: {
-        url: string;
-        api(action: string, data: {
-            type: "register";
-            token: string;
-            id: string;
-        } | {
-            type: "send";
-            id: string;
-            body: string;
-            title: string;
-            data?: any;
-        }): Promise<{
-            result: string;
-            error?: undefined;
-            totalDevice?: undefined;
-        } | {
-            error: string;
-            result?: undefined;
-            totalDevice?: undefined;
-        } | {
-            result: string;
-            totalDevice: any;
-            error?: undefined;
-        }>;
-    };
-}
-declare module "pkgs/api/_api_frm" {
-    export const _: {
-        url: string;
-        api(): Promise<void>;
-    };
-}
-declare module "pkgs/api/_dbs" {
-    export const _: {
-        url: string;
-        api(dbName: any, action?: string): Promise<void>;
-    };
-}
-declare module "pkgs/api/_upload" {
-    export const _: {
-        url: string;
-        raw: boolean;
-        api(body: any): Promise<string>;
-    };
-}
 declare module "pkgs/api/_prasi" {
     export const _: {
         url: string;
@@ -214,6 +160,13 @@ declare module "pkgs/api/_deploy" {
     };
     export const downloadFile: (url: string, filePath: string, progress?: (rec: number, total: number) => void) => Promise<boolean>;
 }
+declare module "pkgs/api/_upload" {
+    export const _: {
+        url: string;
+        raw: boolean;
+        api(body: any): Promise<string>;
+    };
+}
 declare module "pkgs/server/serve-web" {
     export const serveWeb: (url: URL, req: Request) => Promise<string[] | Response>;
     export const generateIndexHtml: (base_url: string, site_id: string) => string;
@@ -224,13 +177,88 @@ declare module "pkgs/api/_file" {
         api(): Promise<Response>;
     };
 }
+declare module "pkgs/api/_notif" {
+    export const _: {
+        url: string;
+        api(action: string, data: {
+            type: "register";
+            token: string;
+            id: string;
+        } | {
+            type: "send";
+            id: string;
+            body: string;
+            title: string;
+            data?: any;
+        }): Promise<{
+            result: string;
+            error?: undefined;
+            totalDevice?: undefined;
+        } | {
+            error: string;
+            result?: undefined;
+            totalDevice?: undefined;
+        } | {
+            result: string;
+            totalDevice: any;
+            error?: undefined;
+        }>;
+    };
+}
+declare module "pkgs/api/_api_frm" {
+    export const _: {
+        url: string;
+        api(): Promise<void>;
+    };
+}
+declare module "pkgs/api/_proxy" {
+    export const _: {
+        url: string;
+        raw: boolean;
+        api(): Promise<Response>;
+    };
+}
+declare module "pkgs/api/_dbs" {
+    export const _: {
+        url: string;
+        api(dbName: any, action?: string): Promise<void>;
+    };
+}
 declare module "app/srv/exports" {
-    export const _proxy: {
+    export const _web: {
+        name: string;
+        url: string;
+        path: string;
+        args: string[];
+        handler: Promise<typeof import("pkgs/api/_web")>;
+    };
+    export const _deploy: {
+        name: string;
+        url: string;
+        path: string;
+        args: string[];
+        handler: Promise<typeof import("pkgs/api/_deploy")>;
+    };
+    export const _upload: {
+        name: string;
+        url: string;
+        path: string;
+        args: string[];
+        handler: Promise<typeof import("pkgs/api/_upload")>;
+    };
+    export const _prasi: {
         name: string;
         url: string;
         path: string;
         args: any[];
-        handler: Promise<typeof import("pkgs/api/_proxy")>;
+        handler: Promise<typeof import("pkgs/api/_prasi")>;
+    };
+    export const _file: {
+        name: string;
+        url: string;
+        path: string;
+        args: any[];
+        handler: Promise<typeof import("pkgs/api/_file")>;
     };
     export const _notif: {
         name: string;
@@ -246,46 +274,18 @@ declare module "app/srv/exports" {
         args: any[];
         handler: Promise<typeof import("pkgs/api/_api_frm")>;
     };
+    export const _proxy: {
+        name: string;
+        url: string;
+        path: string;
+        args: any[];
+        handler: Promise<typeof import("pkgs/api/_proxy")>;
+    };
     export const _dbs: {
         name: string;
         url: string;
         path: string;
         args: string[];
         handler: Promise<typeof import("pkgs/api/_dbs")>;
-    };
-    export const _upload: {
-        name: string;
-        url: string;
-        path: string;
-        args: string[];
-        handler: Promise<typeof import("pkgs/api/_upload")>;
-    };
-    export const _web: {
-        name: string;
-        url: string;
-        path: string;
-        args: string[];
-        handler: Promise<typeof import("pkgs/api/_web")>;
-    };
-    export const _prasi: {
-        name: string;
-        url: string;
-        path: string;
-        args: any[];
-        handler: Promise<typeof import("pkgs/api/_prasi")>;
-    };
-    export const _deploy: {
-        name: string;
-        url: string;
-        path: string;
-        args: string[];
-        handler: Promise<typeof import("pkgs/api/_deploy")>;
-    };
-    export const _file: {
-        name: string;
-        url: string;
-        path: string;
-        args: any[];
-        handler: Promise<typeof import("pkgs/api/_file")>;
     };
 }
