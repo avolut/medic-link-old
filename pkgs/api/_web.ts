@@ -18,11 +18,6 @@ export const _ = {
           case "site": {
             res.setHeader("content-type", "application/json");
             if (req.query_parameters["prod"]) {
-
-              if (cache.site)
-                cache.site.config = {
-                  api_url: "https://mobile.medic-link.net"
-                }
               return {
                 site: cache.site,
                 pages: cache.pages.map((e) => {

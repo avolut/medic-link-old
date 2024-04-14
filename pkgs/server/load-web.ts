@@ -79,6 +79,17 @@ export const loadWebCache = async (site_id: string, ts: number | string) => {
 
         const res = gunzipSync(fileContent);
         web.cache = JSON.parse(decoder.decode(res));
+
+        try {
+          const domains = await readAsync(
+            dir(`app/web/${site_id}/domains.json`),
+            "json"
+          );
+          if (web.cache && web.cache.site) {
+            web.cache.site.config.api_url = domains[0];
+          }
+        } catch (e) {}
+
         web.router = createRouter();
         for (const p of web.cache?.pages || []) {
           web.router.insert(p.url, p);
