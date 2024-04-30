@@ -172,6 +172,3 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
-
-app/static
-app/static/*

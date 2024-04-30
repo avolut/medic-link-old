@@ -17,14 +17,11 @@ import { g } from "../utils/global";
 export const loadWeb = async () => {
   g.web = {};
 
-  await dirAsync(dir(`app/static`));
-  const siteZip = `${
-    g.mode === "dev" ? "http://localhost:4550" : "https://prasi.avolut.com"
-  }/site-bundle`;
-  const zipPath = dir(`app/static/site.zip`);
-  const md5Path = dir(`app/static/md5`);
+  // await dirAsync(dir(`app/static`));
+  // const siteZip = `https://prasi.avolut.com/site-bundle`;
+  // const zipPath = dir(`app/static/site.zip`);
+  // const md5Path = dir(`app/static/md5`);
   // console.log("downloading site.zip");
-
   // await downloadFile(`${siteZip}/download`, zipPath);
   // await removeAsync(dir(`app/static/site`));
   // await $({ cwd: dir(`app/static`) })`unzip site.zip`;
