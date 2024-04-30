@@ -80,6 +80,14 @@ export const _ = {
                 } catch (e: any) {
                   console.error("Firebase error", e.message);
                   result = result.filter((v) => v.token !== c.token);
+
+                  // fcm token not registered anymore, just remove it from db
+                  // https://stackoverflow.com/a/56218146/308977
+                  if (e.message && e.message.includes("was not found")) {
+                    g.notif.db.query<{ token: string }, any>(
+                      `DELETE FROM notif WHERE id = '${data.id}'`
+                    );
+                  }
                 }
               }
 
