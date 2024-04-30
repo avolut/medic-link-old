@@ -58,6 +58,7 @@ model m_action {
   m_action_category      m_action_category[]
   m_action_rolemap       m_action_rolemap[]
   m_action_semester      m_action_semester[]
+  m_another_role         m_another_role[]
   m_asm_action           m_asm_action[]
   m_score_option         m_score_option[]
   m_user_action          m_user_action[]
@@ -167,8 +168,6 @@ model m_client {
   m_user_m_user_id_clientTom_client      m_user[]               @relation("m_user_id_clientTom_client")
   m_user_m_user_id_institutionTom_client m_user[]               @relation("m_user_id_institutionTom_client")
   m_user_action                          m_user_action[]
-  object_attribute                       object_attribute[]
-  object_value                           object_value[]
   t_audit_trails                         t_audit_trails[]
   t_logbook                              t_logbook[]
   t_logbook_asm                          t_logbook_asm[]
@@ -484,44 +483,8 @@ model m_another_role {
   id        Int         @id(map: "m_operation_type_pkey") @default(autoincrement())
   role_name String      @db.VarChar
   id_client Int
+  id_action Int?
+  m_action  m_action?   @relation(fields: [id_action], references: [id], onDelete: NoAction, onUpdate: NoAction)
   m_client  m_client    @relation(fields: [id_client], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "m_operation_type_id_client_fkey")
   t_logbook t_logbook[]
-}
-
-model object_attribute {
-  id                     String             @id(map: "m_object_attribute_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  attribute_name         String             @db.VarChar
-  identifier             String             @db.VarChar
-  url                    String?            @db.VarChar
-  parent_id              String?            @db.Uuid
-  client_id              Int
-  m_client               m_client           @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "m_object_attribute_client_id_fkey")
-  object_attribute       object_attribute?  @relation("object_attributeToobject_attribute", fields: [parent_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "m_object_attribute_parent_id_fkey")
-  other_object_attribute object_attribute[] @relation("object_attributeToobject_attribute")
-  object_rule            object_rule[]
-  object_value           object_value[]
-}
-
-model object_rule {
-  id                  String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name                String            @db.VarChar
-  rule_type           String            @db.VarChar
-  rule_value          String            @db.VarChar
-  target_table        String?           @db.VarChar
-  target_column       String?           @db.VarChar
-  id_object_attribute String?           @db.Uuid
-  object_attribute    object_attribute? @relation(fields: [id_object_attribute], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model object_value {
-  id                 String           @id(map: "m_object_value_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  value              String
-  notes              String?          @db.VarChar
-  attribute_id       String           @db.Uuid
-  parent_id          String?          @db.Uuid
-  client_id          Int
-  object_attribute   object_attribute @relation(fields: [attribute_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "m_object_value_attribute_id_fkey")
-  m_client           m_client         @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "m_object_value_client_id_fkey")
-  object_value       object_value?    @relation("object_valueToobject_value", fields: [parent_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "m_object_value_parent_id_fkey")
-  other_object_value object_value[]   @relation("object_valueToobject_value")
 }

@@ -23,11 +23,11 @@ export const loadWeb = async () => {
   }/site-bundle`;
   const zipPath = dir(`app/static/site.zip`);
   const md5Path = dir(`app/static/md5`);
-  console.log("downloading site.zip");
+  // console.log("downloading site.zip");
 
-  await downloadFile(`${siteZip}/download`, zipPath);
-  await removeAsync(dir(`app/static/site`));
-  await $({ cwd: dir(`app/static`) })`unzip site.zip`;
+  // await downloadFile(`${siteZip}/download`, zipPath);
+  // await removeAsync(dir(`app/static/site`));
+  // await $({ cwd: dir(`app/static`) })`unzip site.zip`;
 
   const list = await inspectTreeAsync(dir(`app/web`));
   for (const web of list?.children || []) {
