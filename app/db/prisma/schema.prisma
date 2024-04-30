@@ -490,10 +490,11 @@ model m_another_role {
 }
 
 model t_db_log {
-  id    String   @id(map: "t_db_log_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  at    DateTime @default(now()) @db.Timestamptz(6)
-  data  Json
-  ref   String
-  ip    String
-  mlsid String?  @db.Uuid
+  id      String   @id(map: "t_db_log_id") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  at      DateTime @default(now()) @db.Timestamptz(6)
+  data    Json
+  ref     String
+  ip      String
+  mlsid   String?  @db.Uuid
+  id_user Int?
 }
