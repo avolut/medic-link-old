@@ -1,8 +1,8 @@
-
 export type DBArg = {
   db: string;
   table: string;
   action: string;
+  mlsid?: string;
   params: any[];
 };
 

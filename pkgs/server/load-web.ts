@@ -18,7 +18,8 @@ export const loadWeb = async () => {
   g.web = {};
 
   // await dirAsync(dir(`app/static`));
-  // const siteZip = `https://prasi.avolut.com/site-bundle`;
+  // // const siteZip = `https://prasi.avolut.com/site-bundle`;
+  // const siteZip = `http://localhost:4550/site-bundle`;
   // const zipPath = dir(`app/static/site.zip`);
   // const md5Path = dir(`app/static/md5`);
   // console.log("downloading site.zip");
@@ -83,7 +84,11 @@ export const loadWebCache = async (site_id: string, ts: number | string) => {
             "json"
           );
           if (web.cache && web.cache.site) {
-            web.cache.site.config.api_url = domains[0];
+            if (g.mode === "dev") {
+              web.cache.site.config.api_url = `http://localhost:${g.port}`;
+            } else {
+              web.cache.site.config.api_url = domains[0];
+            }
           }
         } catch (e) {}
 
